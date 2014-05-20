@@ -42,6 +42,7 @@
         android:layout_alignRight="@+id/password"
         android:layout_alignEnd="@+id/password"
         android:layout_alignLeft="@+id/password"
-        android:layout_alignStart="@+id/password" />
+        android:layout_alignStart="@+id/password"
+        android:onClick="verifyLogin" />
 
 </RelativeLayout>
