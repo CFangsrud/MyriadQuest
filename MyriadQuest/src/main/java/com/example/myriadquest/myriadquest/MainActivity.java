@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -38,6 +39,26 @@ public class MainActivity extends ActionBarActivity {
 
     /** Verify that the given login details are valid. **/
     public void verifyLogin(View view) {
+        String validUser = getResources().getString(R.string.validUsername);
+        String validUserPassword = getResources().getString(R.string.validPassword);
 
+        EditText userText = (EditText) findViewById(R.id.username);
+        String enteredUser = userText.getText().toString();
+        if (enteredUser.equals("")){
+            userText.setError("Required");
+        }
+
+        EditText passwordText = (EditText) findViewById(R.id.password);
+        String enteredPassword = passwordText.getText().toString();
+        if (enteredPassword.equals("")){
+            passwordText.setError("Required");
+        }
+
+        if(enteredUser.equals(validUser) && enteredPassword.equals(validUserPassword)){
+            //login
+        } else {
+            userText.setError("Invalid username or password");
+            passwordText.setError("Invalid username or password");
+        }
     }
 }
