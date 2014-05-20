@@ -16,6 +16,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.example.myriadquest.myriadquest.QuestListActivity"
+            android:label="@string/title_activity_quest_list" >
+        </activity>
     </application>
 
 </manifest>

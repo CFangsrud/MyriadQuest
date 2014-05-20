@@ -7,7 +7,8 @@
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="login">Log In!</string>
-
     <string name="validUsername">Lancelot</string>
     <string name="validPassword">arthutDoesntKnow</string>
+    <string name="title_activity_quest_list">QuestListActivity</string>
+
 </resources>

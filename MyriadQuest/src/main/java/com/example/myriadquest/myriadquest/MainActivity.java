@@ -1,5 +1,6 @@
 package com.example.myriadquest.myriadquest;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -44,18 +45,19 @@ public class MainActivity extends ActionBarActivity {
 
         EditText userText = (EditText) findViewById(R.id.username);
         String enteredUser = userText.getText().toString();
-        if (enteredUser.equals("")){
+        if (enteredUser.equals("")) {
             userText.setError("Required");
         }
 
         EditText passwordText = (EditText) findViewById(R.id.password);
         String enteredPassword = passwordText.getText().toString();
-        if (enteredPassword.equals("")){
+        if (enteredPassword.equals("")) {
             passwordText.setError("Required");
         }
 
         if(enteredUser.equals(validUser) && enteredPassword.equals(validUserPassword)){
-            //login
+            Intent intent = new Intent(this, QuestListActivity.class);
+            startActivity(intent);
         } else {
             userText.setError("Invalid username or password");
             passwordText.setError("Invalid username or password");
