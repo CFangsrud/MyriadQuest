@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">MyriadQuest</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="app_name">Myriad Quest</string>
     <string name="action_settings">Settings</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="login">Log In!</string>
     <string name="validUsername">Lancelot</string>
-    <string name="validPassword">arthutDoesntKnow</string>
-    <string name="title_activity_quest_list">QuestListActivity</string>
+    <string name="validPassword">arthurDoesntKnow</string>
+    <string name="title_activity_quest_list">Quest List</string>
 
 </resources>
