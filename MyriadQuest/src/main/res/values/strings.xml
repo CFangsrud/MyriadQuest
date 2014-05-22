@@ -22,13 +22,13 @@
     <string name="quest2Name">Special Delivery</string>
     <string name="quest2Alignment">NEUTRAL</string>
     <string name="quest2Description">Sir Jimmy was once the fastest man in the kingdom, brave as any soldier and wise as a king. Unfortunately, age catches us all in the end, and he has requested that I, his personal scribe, find a hero to deliver a package of particular importance—and protect it with their life.</string>
-    <string name="quest2location">(46.8657639, -96.7363173)</string>
+    <string name="quest2Location">(46.8657639, -96.7363173)</string>
     <string name="quest2Giver">Sir Jimmy The Swift</string>
     <string name="quest2GiverLocation">(46.8739748, -96.806112)</string>
 
     <string name="quest3Name">Filthy Mongrel</string>
     <string name="quest3Alignment">EVIL</string>
-    <string name="quest3Description">That strange dog that everyone is treating like a bounty-hunter must go. By the order of Prince Jack, that smelly, disease ridden mongrel must be removed from our streets by any means necessary. He is disrupting the lives of ordinary citizens, and it's just really weird. Make it gone.</string>
+    <string name="quest3Description">That strange dog that everyone is treating like a bounty-hunter must go. By the order of Prince Jack, that smelly, disease ridden mongrel must be removed from our streets by any means necessary. He is disrupting the lives of ordinary citizens, and it\'s just really weird. Make it gone.</string>
     <string name="quest3Location">(46.892386,-96.799669)</string>
     <string name="quest3Giver">Prince Jack, The Iron Horse</string>
     <string name="quest3GiverLocation">(46.8739748, -96.806112)</string>

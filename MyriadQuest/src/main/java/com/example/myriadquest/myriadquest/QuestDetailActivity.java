@@ -1,9 +1,11 @@
 package com.example.myriadquest.myriadquest;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 
 public class QuestDetailActivity extends ActionBarActivity {
@@ -12,6 +14,35 @@ public class QuestDetailActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quest_detail);
+
+        TextView questName = (TextView) findViewById(R.id.name);
+        TextView questGiver = (TextView) findViewById(R.id.giver);
+        TextView questDescription = (TextView) findViewById(R.id.description);
+
+        Intent intent = getIntent();
+        int chosenQuest = intent.getIntExtra(QuestListActivity.QUEST_NUMBER,0);
+
+        switch(chosenQuest){
+            case 1:
+                questName.setText(getResources().getString(R.string.quest1Name));
+                questGiver.setText(getResources().getString(R.string.quest1Giver));
+                questDescription.setText(getResources().getString(R.string.quest1Description));
+                break;
+            case 2:
+                questName.setText(getResources().getString(R.string.quest2Name));
+                questGiver.setText(getResources().getString(R.string.quest2Giver));
+                questDescription.setText(getResources().getString(R.string.quest2Description));
+                break;
+            case 3:
+                questName.setText(getResources().getString(R.string.quest3Name));
+                questGiver.setText(getResources().getString(R.string.quest3Giver));
+                questDescription.setText(getResources().getString(R.string.quest3Description));
+                break;
+            default:
+                questName.setText("No Quest (" + chosenQuest + ")");
+                questGiver.setText("No Quest Giver");
+                questDescription.setText("No Description");
+        }
     }
 
 

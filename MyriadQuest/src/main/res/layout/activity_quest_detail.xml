@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
+        android:text="Quest Name"
         android:id="@+id/name"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
@@ -34,7 +34,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Small Text"
+        android:text="Quest Giver"
         android:id="@+id/giverName"
         android:layout_below="@+id/name"
         android:layout_toRightOf="@+id/giver" />
@@ -60,4 +60,5 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginTop="29dp" />
+
 </RelativeLayout>
