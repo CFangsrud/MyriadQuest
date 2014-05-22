@@ -40,15 +40,14 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="@string/quest1Giver"
             android:id="@+id/quest1Giver"
-            android:layout_right="@+id/postedView1"
-            android:layout_below="@+id/quest1Name"
-            android:layout_toRightOf="@+id/postedView1" />
+            android:layout_toRightOf="@+id/postedView1"
+            android:layout_below="@+id/quest1Name" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Reward: 10000 Gold, 10000 XP"
+            android:text="@string/reward"
             android:id="@+id/quest1Reward"
             android:layout_below="@+id/postedView1"
             android:layout_alignParentLeft="true"
@@ -93,7 +92,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Reward: 10000 Gold, 10000 XP"
+            android:text="@string/reward"
             android:id="@+id/quest2Reward"
             android:layout_below="@+id/quest2Giver"
             android:layout_alignParentLeft="true"
@@ -139,7 +138,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Reward: 10000 Gold, 10000 XP"
+            android:text="@string/reward"
             android:id="@+id/quest3Reward"
             android:layout_below="@+id/postedView3"
             android:layout_alignParentLeft="true"
