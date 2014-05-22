@@ -4,6 +4,8 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 
 public class QuestListActivity extends ActionBarActivity {
@@ -35,4 +37,15 @@ public class QuestListActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void selectQuest1(View view) {
+
+    }
+
+    public void selectQuest2(View view) {
+
+    }
+
+    public void selectQuest3(View view) {
+
+    }
 }
