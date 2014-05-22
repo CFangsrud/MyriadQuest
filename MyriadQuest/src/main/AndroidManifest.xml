@@ -20,6 +20,10 @@
             android:name="com.example.myriadquest.myriadquest.QuestListActivity"
             android:label="@string/title_activity_quest_list" >
         </activity>
+        <activity
+            android:name="com.example.myriadquest.myriadquest.QuestDetailActivity"
+            android:label="@string/title_activity_quest_detail" >
+        </activity>
     </application>
 
 </manifest>

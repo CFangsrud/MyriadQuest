@@ -1,21 +1,17 @@
 package com.example.myriadquest.myriadquest;
 
-import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 
-public class QuestListActivity extends ActionBarActivity {
-
-    public static final String QUEST_NUMBER = "com.example.myriadquest.NUMBER";
+public class QuestDetailActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_quest_list);
+        setContentView(R.layout.activity_quest_detail);
     }
 
 
@@ -23,7 +19,7 @@ public class QuestListActivity extends ActionBarActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.quest_list, menu);
+        getMenuInflater().inflate(R.menu.quest_detail, menu);
         return true;
     }
 
@@ -39,21 +35,4 @@ public class QuestListActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void selectQuest1(View view) {
-        Intent intent = new Intent(this, QuestDetailActivity.class);
-        intent.putExtra(QUEST_NUMBER, 1);
-        startActivity(intent);
-    }
-
-    public void selectQuest2(View view) {
-        Intent intent = new Intent(this, QuestDetailActivity.class);
-        intent.putExtra(QUEST_NUMBER, 2);
-        startActivity(intent);
-    }
-
-    public void selectQuest3(View view) {
-        Intent intent = new Intent(this, QuestDetailActivity.class);
-        intent.putExtra(QUEST_NUMBER, 3);
-        startActivity(intent);
-    }
 }

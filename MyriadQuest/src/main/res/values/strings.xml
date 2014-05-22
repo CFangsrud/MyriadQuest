@@ -33,4 +33,6 @@
     <string name="quest3Giver">Prince Jack, The Iron Horse</string>
     <string name="quest3GiverLocation">(46.8739748, -96.806112)</string>
 
+    <string name="title_activity_quest_detail">Details</string>
+
 </resources>
