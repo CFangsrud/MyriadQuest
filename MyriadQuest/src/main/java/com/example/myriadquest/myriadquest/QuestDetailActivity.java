@@ -15,34 +15,18 @@ public class QuestDetailActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quest_detail);
 
-        TextView questName = (TextView) findViewById(R.id.name);
-        TextView questGiver = (TextView) findViewById(R.id.giver);
-        TextView questDescription = (TextView) findViewById(R.id.description);
+        TextView questNameView = (TextView) findViewById(R.id.name);
+        TextView questGiverView = (TextView) findViewById(R.id.giverName);
+        TextView questDescriptionView = (TextView) findViewById(R.id.description);
 
         Intent intent = getIntent();
-        int chosenQuest = intent.getIntExtra(QuestListActivity.QUEST_NUMBER,0);
+        String questName = intent.getStringExtra(QuestListActivity.QUEST_NAME);
+        String questGiver = intent.getStringExtra(QuestListActivity.QUEST_GIVER);
+        String questDescription = intent.getStringExtra(QuestListActivity.QUEST_DESCRIPTION);
 
-        switch(chosenQuest){
-            case 1:
-                questName.setText(getResources().getString(R.string.quest1Name));
-                questGiver.setText(getResources().getString(R.string.quest1Giver));
-                questDescription.setText(getResources().getString(R.string.quest1Description));
-                break;
-            case 2:
-                questName.setText(getResources().getString(R.string.quest2Name));
-                questGiver.setText(getResources().getString(R.string.quest2Giver));
-                questDescription.setText(getResources().getString(R.string.quest2Description));
-                break;
-            case 3:
-                questName.setText(getResources().getString(R.string.quest3Name));
-                questGiver.setText(getResources().getString(R.string.quest3Giver));
-                questDescription.setText(getResources().getString(R.string.quest3Description));
-                break;
-            default:
-                questName.setText("No Quest (" + chosenQuest + ")");
-                questGiver.setText("No Quest Giver");
-                questDescription.setText("No Description");
-        }
+        questNameView.setText(questName);
+        questGiverView.setText(questGiver);
+        questDescriptionView.setText(questDescription);
     }
 
 

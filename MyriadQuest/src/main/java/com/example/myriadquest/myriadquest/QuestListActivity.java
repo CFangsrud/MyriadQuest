@@ -10,7 +10,9 @@ import android.view.View;
 
 public class QuestListActivity extends ActionBarActivity {
 
-    public static final String QUEST_NUMBER = "com.example.myriadquest.NUMBER";
+    public static final String QUEST_NAME = "com.example.myriadquest.NAME";
+    public static final String QUEST_GIVER = "com.example.myriadquest.GIVER";
+    public static final String QUEST_DESCRIPTION = "com.example.myriadquest.DESCRIPTION";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,20 +42,49 @@ public class QuestListActivity extends ActionBarActivity {
     }
 
     public void selectQuest1(View view) {
-        Intent intent = new Intent(this, QuestDetailActivity.class);
-        intent.putExtra(QUEST_NUMBER, 1);
-        startActivity(intent);
+        startQuestDetailActivity(1);
     }
 
     public void selectQuest2(View view) {
-        Intent intent = new Intent(this, QuestDetailActivity.class);
-        intent.putExtra(QUEST_NUMBER, 2);
-        startActivity(intent);
+        startQuestDetailActivity(2);
     }
 
     public void selectQuest3(View view) {
+        startQuestDetailActivity(3);
+    }
+
+    private void startQuestDetailActivity(int chosenQuest){
+        String questName;
+        String questGiver;
+        String questDescription;
+
+        switch(chosenQuest){
+            case 1:
+                questName = getResources().getString(R.string.quest1Name);
+                questGiver = getResources().getString(R.string.quest1Giver);
+                questDescription = getResources().getString(R.string.quest1Description);
+                break;
+            case 2:
+                questName = getResources().getString(R.string.quest2Name);
+                questGiver = getResources().getString(R.string.quest2Giver);
+                questDescription = getResources().getString(R.string.quest2Description);
+                break;
+            case 3:
+                questName = getResources().getString(R.string.quest3Name);
+                questGiver = getResources().getString(R.string.quest3Giver);
+                questDescription = getResources().getString(R.string.quest3Description);
+                break;
+            default:
+                questName = "No Quest (" + chosenQuest + ")";
+                questGiver = "No Quest Giver";
+                questDescription = "No Description";
+        }
+
         Intent intent = new Intent(this, QuestDetailActivity.class);
-        intent.putExtra(QUEST_NUMBER, 3);
+        intent.putExtra(QUEST_NAME, questName);
+        intent.putExtra(QUEST_GIVER, questGiver);
+        intent.putExtra(QUEST_DESCRIPTION, questDescription);
         startActivity(intent);
     }
+
 }
