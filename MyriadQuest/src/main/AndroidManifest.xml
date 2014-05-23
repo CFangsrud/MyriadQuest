@@ -18,11 +18,19 @@
         </activity>
         <activity
             android:name="com.example.myriadquest.myriadquest.QuestListActivity"
-            android:label="@string/title_activity_quest_list" >
+            android:label="@string/title_activity_quest_list"
+            android:parentActivityName="com.example.myriadquest.myriadquest.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.myriadquest.myriadquest.MainActivity"/>
         </activity>
         <activity
             android:name="com.example.myriadquest.myriadquest.QuestDetailActivity"
-            android:label="@string/title_activity_quest_detail" >
+            android:label="@string/title_activity_quest_detail"
+            android:parentActivityName=".QuestListActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.myriadquest.myriadquest.QuestListActivity"/>
         </activity>
     </application>
 
