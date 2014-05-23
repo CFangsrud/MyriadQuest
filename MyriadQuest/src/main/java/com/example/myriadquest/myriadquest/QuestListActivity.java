@@ -41,18 +41,22 @@ public class QuestListActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /** Quest 1 selected. **/
     public void selectQuest1(View view) {
         startQuestDetailActivity(1);
     }
 
+    /** Quest 2 selected. **/
     public void selectQuest2(View view) {
         startQuestDetailActivity(2);
     }
 
+    /** Quest 3 selected. **/
     public void selectQuest3(View view) {
         startQuestDetailActivity(3);
     }
 
+    /** Get the details for the selected quest and start QuestDetailActivity. **/
     private void startQuestDetailActivity(int chosenQuest){
         String questName;
         String questGiver;
