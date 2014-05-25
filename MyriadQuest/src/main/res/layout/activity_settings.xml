@@ -19,21 +19,37 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:hint="Name" />
+        android:hint="@string/settingNameHint" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/editOriginLocation"
+        android:layout_below="@+id/editNameField"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:hint="@string/settingLocationHint" />
 
     <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/alignmentSpinner"
-        android:layout_below="@+id/editNameField"
+        android:layout_below="@+id/editOriginLocation"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/locationButtonText"
-        android:id="@+id/locationButton"
+        android:text="@string/updateButtonText"
+        android:id="@+id/updateButton"
+        android:onClick="updateSettings"
         android:layout_below="@+id/alignmentSpinner"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
