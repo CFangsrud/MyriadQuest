@@ -3,11 +3,14 @@
 
     <string name="app_name">Myriad Quest</string>
     <string name="action_settings">Settings</string>
+
     <string name="username">Username</string>
     <string name="password">Password</string>
+    <string name="saveLoginText">Remember Username</string>
     <string name="login">Log In!</string>
     <string name="validUsername">Lancelot</string>
     <string name="validPassword">arthurDoesntKnow</string>
+
     <string name="title_activity_quest_list">Quest List</string>
 
     <string name="reward">Reward: 10000 Gold, 10000 XP</string>

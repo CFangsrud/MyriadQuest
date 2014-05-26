@@ -33,16 +33,28 @@
         android:selectAllOnFocus="false"
         android:hint="@string/password" />
 
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/saveLoginText"
+        android:id="@+id/saveLoginCheckBox"
+        android:layout_below="@+id/password"
+        android:layout_alignLeft="@+id/password"
+        android:layout_alignStart="@+id/password"
+        android:layout_alignRight="@+id/password"
+        android:layout_alignEnd="@+id/password"
+        android:checked="false" />
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/login"
         android:id="@+id/loginButton"
-        android:layout_below="@+id/password"
-        android:layout_alignRight="@+id/password"
-        android:layout_alignEnd="@+id/password"
+        android:onClick="verifyLogin"
+        android:layout_below="@+id/saveLoginCheckBox"
         android:layout_alignLeft="@+id/password"
         android:layout_alignStart="@+id/password"
-        android:onClick="verifyLogin" />
+        android:layout_alignRight="@+id/saveLoginCheckBox"
+        android:layout_alignEnd="@+id/saveLoginCheckBox" />
 
 </RelativeLayout>

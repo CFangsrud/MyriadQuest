@@ -1,22 +1,51 @@
 package com.example.myriadquest.myriadquest;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 
 
 public class MainActivity extends ActionBarActivity {
 
+    public static final String SAVE_LOGIN_KEY = "com.example.myriadquest.SAVE_LOGIN";
+    public static final String USERNAME_KEY = "com.example.myriadquest.USERNAME";
+
+    private SharedPreferences savedSettings;
+    private SharedPreferences.Editor savedSettingsEditor;
+
+    private CheckBox saveLoginBox;
+    private boolean isLoginSaved;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-    }
 
+        savedSettings = getSharedPreferences("loginSettings", MODE_PRIVATE);
+        savedSettingsEditor = savedSettings.edit();
+
+        saveLoginBox = (CheckBox) findViewById(R.id.saveLoginCheckBox);
+        isLoginSaved = savedSettings.getBoolean(SAVE_LOGIN_KEY, false);
+
+        // Display saved username, if any has been saved.
+        saveLoginBox.setChecked(isLoginSaved);
+        if (isLoginSaved){
+            EditText usernameField = (EditText) findViewById(R.id.username);
+            String savedUsername = savedSettings.getString(USERNAME_KEY, "");
+            if (savedUsername.equals("")){
+                usernameField.setText("No Saved Username");
+            } else {
+                usernameField.setText(savedUsername);
+            }
+        }
+
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -56,8 +85,21 @@ public class MainActivity extends ActionBarActivity {
         }
 
         if(enteredUser.equals(validUser) && enteredPassword.equals(validUserPassword)){
+            // Only save username when the username is valid
+            isLoginSaved = saveLoginBox.isChecked();
+            savedSettingsEditor.putBoolean(SAVE_LOGIN_KEY, isLoginSaved);
+            if (isLoginSaved){
+                savedSettingsEditor.putString(USERNAME_KEY, enteredUser);
+            }
+            // else clear saved username.
+            else {
+                savedSettingsEditor.remove(USERNAME_KEY);
+            }
+            savedSettingsEditor.apply();
+
             Intent intent = new Intent(this, QuestListActivity.class);
             startActivity(intent);
+
         } else {
             userText.setError("Invalid username or password");
             passwordText.setError("Invalid username or password");
