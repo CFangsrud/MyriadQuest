@@ -73,18 +73,16 @@ public class MainActivity extends ActionBarActivity {
         String validUserPassword = getResources().getString(R.string.validPassword);
 
         EditText userText = (EditText) findViewById(R.id.username);
+        EditText passwordText = (EditText) findViewById(R.id.password);
+
         String enteredUser = userText.getText().toString();
+        String enteredPassword = passwordText.getText().toString();
+
         if (enteredUser.equals("")) {
             userText.setError("Required");
-        }
-
-        EditText passwordText = (EditText) findViewById(R.id.password);
-        String enteredPassword = passwordText.getText().toString();
-        if (enteredPassword.equals("")) {
+        } else if (enteredPassword.equals("")) {
             passwordText.setError("Required");
-        }
-
-        if(enteredUser.equals(validUser) && enteredPassword.equals(validUserPassword)){
+        } else if (enteredUser.equals(validUser) && enteredPassword.equals(validUserPassword)) {
             // Only save username when the username is valid
             isLoginSaved = saveLoginBox.isChecked();
             savedSettingsEditor.putBoolean(SAVE_LOGIN_KEY, isLoginSaved);
@@ -95,7 +93,7 @@ public class MainActivity extends ActionBarActivity {
             else {
                 savedSettingsEditor.remove(USERNAME_KEY);
             }
-            savedSettingsEditor.apply();
+            savedSettingsEditor.commit();
 
             Intent intent = new Intent(this, QuestListActivity.class);
             startActivity(intent);

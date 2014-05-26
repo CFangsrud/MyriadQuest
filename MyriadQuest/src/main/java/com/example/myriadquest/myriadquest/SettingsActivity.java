@@ -92,6 +92,6 @@ public class SettingsActivity extends ActionBarActivity implements AdapterView.O
         savedSettingsEditor.putString(NAME_KEY, name);
         savedSettingsEditor.putString(LOCATION_KEY, location);
         savedSettingsEditor.putInt(ALIGNMENT_KEY, alignment);
-        savedSettingsEditor.apply();
+        savedSettingsEditor.commit();
     }
 }
