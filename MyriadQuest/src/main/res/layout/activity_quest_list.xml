@@ -46,10 +46,27 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Alignment: "
+            android:id="@+id/align1"
+            android:layout_below="@+id/postedView1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/quest1Alignment"
+            android:id="@+id/quest1Alignment"
+            android:layout_below="@+id/postedView1"
+            android:layout_toRightOf="@+id/align1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/reward"
             android:id="@+id/quest1Reward"
-            android:layout_below="@+id/postedView1"
+            android:layout_below="@+id/align1"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
 
@@ -91,10 +108,27 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Alignment: "
+            android:id="@+id/align2"
+            android:layout_below="@+id/postedView2" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/quest2Alignment"
+            android:id="@+id/quest2Alignment"
+            android:layout_below="@+id/postedView2"
+            android:layout_toRightOf="@+id/align2" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/reward"
             android:id="@+id/quest2Reward"
-            android:layout_below="@+id/quest2Giver"
+            android:layout_below="@+id/align2"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
 
@@ -112,7 +146,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Filthy Mongrel"
+            android:text="@string/quest3Name"
             android:id="@+id/quest3Name" />
 
         <TextView
@@ -137,12 +171,30 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Alignment: "
+            android:id="@+id/align3"
+            android:layout_below="@+id/postedView3" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/quest3Alignment"
+            android:id="@+id/quest3Alignment"
+            android:layout_below="@+id/postedView3"
+            android:layout_toRightOf="@+id/align3" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/reward"
             android:id="@+id/quest3Reward"
-            android:layout_below="@+id/postedView3"
+            android:layout_below="@+id/align3"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
+        
     </RelativeLayout>
 
 </LinearLayout>

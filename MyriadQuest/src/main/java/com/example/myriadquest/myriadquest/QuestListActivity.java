@@ -15,6 +15,7 @@ public class QuestListActivity extends ActionBarActivity {
     public static final String QUEST_NAME = "com.example.myriadquest.NAME";
     public static final String QUEST_GIVER = "com.example.myriadquest.GIVER";
     public static final String QUEST_DESCRIPTION = "com.example.myriadquest.DESCRIPTION";
+    public static final String QUEST_ALIGNMENT = "com.example.myriadquest.ALIGNMENT";
     public static final int ALIGNMENT_UPDATED = 1;
 
     @Override
@@ -75,33 +76,39 @@ public class QuestListActivity extends ActionBarActivity {
         String questName;
         String questGiver;
         String questDescription;
+        String questAlignment;
 
         switch(chosenQuest){
             case 1:
                 questName = getResources().getString(R.string.quest1Name);
                 questGiver = getResources().getString(R.string.quest1Giver);
                 questDescription = getResources().getString(R.string.quest1Description);
+                questAlignment = getResources().getString(R.string.quest1Alignment);
                 break;
             case 2:
                 questName = getResources().getString(R.string.quest2Name);
                 questGiver = getResources().getString(R.string.quest2Giver);
                 questDescription = getResources().getString(R.string.quest2Description);
+                questAlignment = getResources().getString(R.string.quest2Alignment);
                 break;
             case 3:
                 questName = getResources().getString(R.string.quest3Name);
                 questGiver = getResources().getString(R.string.quest3Giver);
                 questDescription = getResources().getString(R.string.quest3Description);
+                questAlignment = getResources().getString(R.string.quest3Alignment);
                 break;
             default:
                 questName = "No Quest (" + chosenQuest + ")";
                 questGiver = "No Quest Giver";
                 questDescription = "No Description";
+                questAlignment = "No Alignment";
         }
 
         Intent intent = new Intent(this, QuestDetailActivity.class);
         intent.putExtra(QUEST_NAME, questName);
         intent.putExtra(QUEST_GIVER, questGiver);
         intent.putExtra(QUEST_DESCRIPTION, questDescription);
+        intent.putExtra(QUEST_ALIGNMENT, questAlignment);
         startActivity(intent);
     }
 

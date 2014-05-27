@@ -18,17 +18,19 @@ public class QuestDetailActivity extends ActionBarActivity {
         TextView questNameView = (TextView) findViewById(R.id.name);
         TextView questGiverView = (TextView) findViewById(R.id.giverName);
         TextView questDescriptionView = (TextView) findViewById(R.id.description);
+        TextView questAlignmentView = (TextView) findViewById(R.id.alignmentValue);
 
         Intent intent = getIntent();
         String questName = intent.getStringExtra(QuestListActivity.QUEST_NAME);
         String questGiver = intent.getStringExtra(QuestListActivity.QUEST_GIVER);
         String questDescription = intent.getStringExtra(QuestListActivity.QUEST_DESCRIPTION);
+        String questAlignment = intent.getStringExtra(QuestListActivity.QUEST_ALIGNMENT);
 
         questNameView.setText(questName);
         questGiverView.setText(questGiver);
         questDescriptionView.setText(questDescription);
+        questAlignmentView.setText(questAlignment);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
