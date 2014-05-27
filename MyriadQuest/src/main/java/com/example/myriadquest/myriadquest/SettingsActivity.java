@@ -6,13 +6,12 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 
-public class SettingsActivity extends ActionBarActivity implements AdapterView.OnItemSelectedListener {
+public class SettingsActivity extends ActionBarActivity {
 
     public static final String NAME_KEY = "com.example.myriadquest.NAME";
     public static final String LOCATION_KEY = "com.example.myriadquest.LOCATION";
@@ -48,7 +47,6 @@ public class SettingsActivity extends ActionBarActivity implements AdapterView.O
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.alignmentArray, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         alignmentSpinner.setAdapter(adapter);
-        alignmentSpinner.setOnItemSelectedListener(this);
 
         alignment = savedSettings.getInt(ALIGNMENT_KEY, 1);
         alignmentSpinner.setSelection(alignment);
@@ -75,14 +73,6 @@ public class SettingsActivity extends ActionBarActivity implements AdapterView.O
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
-    }
 
     public void updateSettings(View view) {
         String name = editName.getText().toString();
@@ -93,5 +83,8 @@ public class SettingsActivity extends ActionBarActivity implements AdapterView.O
         savedSettingsEditor.putString(LOCATION_KEY, location);
         savedSettingsEditor.putInt(ALIGNMENT_KEY, alignment);
         savedSettingsEditor.commit();
+
+        setResult(RESULT_OK);
+        finish();
     }
 }

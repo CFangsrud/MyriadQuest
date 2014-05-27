@@ -15,6 +15,7 @@ public class QuestListActivity extends ActionBarActivity {
     public static final String QUEST_NAME = "com.example.myriadquest.NAME";
     public static final String QUEST_GIVER = "com.example.myriadquest.GIVER";
     public static final String QUEST_DESCRIPTION = "com.example.myriadquest.DESCRIPTION";
+    public static final int ALIGNMENT_UPDATED = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,10 +42,17 @@ public class QuestListActivity extends ActionBarActivity {
         int id = item.getItemId();
         if (id == R.id.action_settings) {
             Intent intent = new Intent(this, SettingsActivity.class);
-            startActivity(intent);
+            startActivityForResult(intent, ALIGNMENT_UPDATED);
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        if (requestCode == ALIGNMENT_UPDATED && resultCode == RESULT_OK){
+            updateListVisibility();
+        }
     }
 
     /** Quest 1 selected. **/
