@@ -1,11 +1,13 @@
 package com.example.myriadquest.myriadquest;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.RelativeLayout;
 
 
 public class QuestListActivity extends ActionBarActivity {
@@ -18,6 +20,8 @@ public class QuestListActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quest_list);
+
+        updateListVisibility();
     }
 
 
@@ -93,4 +97,34 @@ public class QuestListActivity extends ActionBarActivity {
         startActivity(intent);
     }
 
+    /** Update the quest list based on user alignment. **/
+    private void updateListVisibility(){
+
+        SharedPreferences savedSettings = getSharedPreferences("accountSettings", MODE_PRIVATE);
+        int alignment = savedSettings.getInt(SettingsActivity.ALIGNMENT_KEY, 1);
+
+        RelativeLayout quest;
+
+        // Show quest 1 if Good or Neutral
+        quest = (RelativeLayout) findViewById(R.id.Quest1Layout);
+        if (alignment < 2){
+            quest.setVisibility(View.VISIBLE);
+        } else {
+            quest.setVisibility(View.GONE);
+        }
+        // Show quest 2 if Neutral
+        quest = (RelativeLayout) findViewById(R.id.Quest2Layout);
+        if (alignment == 1){
+            quest.setVisibility(View.VISIBLE);
+        } else {
+            quest.setVisibility(View.GONE);
+        }
+        // Show quest 3 if Neutral or Evil
+        quest = (RelativeLayout) findViewById(R.id.Quest3Layout);
+        if (alignment > 0){
+            quest.setVisibility(View.VISIBLE);
+        } else {
+            quest.setVisibility(View.GONE);
+        }
+    }
 }
