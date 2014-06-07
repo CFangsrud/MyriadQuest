@@ -21,27 +21,6 @@
     <string name="descriptionDefault">Description</string>
     <string name="reward">Reward: 10000 Gold, 10000 XP</string>
 
-    <string name="quest1Name">Bandits in the Woods</string>
-    <string name="quest1Alignment">GOOD</string>
-    <string name="quest1Description">The famed bounty hunter HotDog has requested the aid of a hero in ridding the woods of terrifying bandits who have thus far eluded his capture, as he is actually a dog, and cannot actually grab things more than 6 feet off the ground.</string>
-    <string name="quest1Location">(46.908588, -96.808991)</string>
-    <string name="quest1Giver">HotDogg The Bounty Hunter</string>
-    <string name="quest1GiverLocation">(46.8541979, -96.8285138)</string>
-
-    <string name="quest2Name">Special Delivery</string>
-    <string name="quest2Alignment">NEUTRAL</string>
-    <string name="quest2Description">Sir Jimmy was once the fastest man in the kingdom, brave as any soldier and wise as a king. Unfortunately, age catches us all in the end, and he has requested that I, his personal scribe, find a hero to deliver a package of particular importance—and protect it with their life.</string>
-    <string name="quest2Location">(46.8657639, -96.7363173)</string>
-    <string name="quest2Giver">Sir Jimmy The Swift</string>
-    <string name="quest2GiverLocation">(46.8739748, -96.806112)</string>
-
-    <string name="quest3Name">Filthy Mongrel</string>
-    <string name="quest3Alignment">EVIL</string>
-    <string name="quest3Description">That strange dog that everyone is treating like a bounty-hunter must go. By the order of Prince Jack, that smelly, disease ridden mongrel must be removed from our streets by any means necessary. He is disrupting the lives of ordinary citizens, and it\'s just really weird. Make it gone.</string>
-    <string name="quest3Location">(46.892386,-96.799669)</string>
-    <string name="quest3Giver">Prince Jack, The Iron Horse</string>
-    <string name="quest3GiverLocation">(46.8739748, -96.806112)</string>
-
     <string name="title_activity_quest_detail">Details</string>
 
     <string name="title_activity_settings">Settings</string>
@@ -53,6 +32,34 @@
         <item>Good</item>
         <item>Neutral</item>
         <item>Evil</item>
+    </string-array>
+
+    <!-- "Offline" Quest data -->
+    <string-array name="quest0">
+        <item>Bandits in the Woods</item>
+        <item>GOOD</item>
+        <item>The famed bounty hunter HotDog has requested the aid of a hero in ridding the woods of terrifying bandits who have thus far eluded his capture, as he is actually a dog, and cannot actually grab things more than 6 feet off the ground.</item>
+        <item>(46.908588, -96.808991)</item>
+        <item>HotDogg The Bounty Hunter</item>
+        <item>(46.8541979, -96.8285138)</item>
+    </string-array>
+
+    <string-array name="quest1">
+        <item>Special Delivery</item>
+        <item>NEUTRAL</item>
+        <item>Sir Jimmy was once the fastest man in the kingdom, brave as any soldier and wise as a king. Unfortunately, age catches us all in the end, and he has requested that I, his personal scribe, find a hero to deliver a package of particular importance—and protect it with their life.</item>
+        <item>(46.8657639, -96.7363173)</item>
+        <item>Sir Jimmy The Swift</item>
+        <item>(46.8739748, -96.806112)</item>
+    </string-array>
+
+    <string-array name="quest2">
+        <item>Filthy Mongrel</item>
+        <item>EVIL</item>
+        <item>That strange dog that everyone is treating like a bounty-hunter must go. By the order of Prince Jack, that smelly, disease ridden mongrel must be removed from our streets by any means necessary. He is disrupting the lives of ordinary citizens, and it\'s just really weird. Make it gone.</item>
+        <item>(46.892386,-96.799669)</item>
+        <item>Prince Jack, The Iron Horse</item>
+        <item>(46.8739748, -96.806112)</item>
     </string-array>
 
 </resources>

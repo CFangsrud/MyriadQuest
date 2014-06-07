@@ -2,16 +2,17 @@ package com.example.myriadquest.myriadquest;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.ActionBarActivity;
+import android.app.ListActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.RelativeLayout;
+import android.widget.ListView;
 
 
-public class QuestListActivity extends ActionBarActivity {
+public class QuestListActivity extends ListActivity {
 
+    private QuestData[] questList;
     public static final int ALIGNMENT_UPDATED = 1;
 
     @Override
@@ -19,7 +20,29 @@ public class QuestListActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quest_list);
 
+        questList = loadQuestData();
+
+        setListAdapter(new QuestDataArrayAdapter(this, questList));
         updateListVisibility();
+    }
+
+    /** Get the quest data for the list adapter.
+     *
+     * At the moment, only "offline" data.
+     */
+    private QuestData[] loadQuestData() {
+        QuestData[] questList = new QuestData[3];
+
+        String[] questStrings = getResources().getStringArray(R.array.quest0);
+        questList[0] = new QuestData(questStrings);
+
+        questStrings = getResources().getStringArray(R.array.quest1);
+        questList[1] = new QuestData(questStrings);
+
+        questStrings = getResources().getStringArray(R.array.quest2);
+        questList[2] = new QuestData(questStrings);
+
+        return questList;
     }
 
 
@@ -52,59 +75,17 @@ public class QuestListActivity extends ActionBarActivity {
         }
     }
 
-    /** Quest 1 selected. **/
-    public void selectQuest1(View view) {
-        startQuestDetailActivity(1);
-    }
-
-    /** Quest 2 selected. **/
-    public void selectQuest2(View view) {
-        startQuestDetailActivity(2);
-    }
-
-    /** Quest 3 selected. **/
-    public void selectQuest3(View view) {
-        startQuestDetailActivity(3);
-    }
-
+    @Override
     /** Get the details for the selected quest and start QuestDetailActivity. **/
-    private void startQuestDetailActivity(int chosenQuest){
-        String questName;
-        String questGiver;
-        String questDescription;
-        String questAlignment;
-
-        switch(chosenQuest){
-            case 1:
-                questName = getResources().getString(R.string.quest1Name);
-                questGiver = getResources().getString(R.string.quest1Giver);
-                questDescription = getResources().getString(R.string.quest1Description);
-                questAlignment = getResources().getString(R.string.quest1Alignment);
-                break;
-            case 2:
-                questName = getResources().getString(R.string.quest2Name);
-                questGiver = getResources().getString(R.string.quest2Giver);
-                questDescription = getResources().getString(R.string.quest2Description);
-                questAlignment = getResources().getString(R.string.quest2Alignment);
-                break;
-            case 3:
-                questName = getResources().getString(R.string.quest3Name);
-                questGiver = getResources().getString(R.string.quest3Giver);
-                questDescription = getResources().getString(R.string.quest3Description);
-                questAlignment = getResources().getString(R.string.quest3Alignment);
-                break;
-            default:
-                questName = "No Quest (" + chosenQuest + ")";
-                questGiver = "No Quest Giver";
-                questDescription = "No Description";
-                questAlignment = "No Alignment";
-        }
-
+    public void onListItemClick(ListView l, View v, int position, long id){
         Intent intent = new Intent(this, QuestDetailActivity.class);
-        intent.putExtra(QuestData.QUEST_NAME, questName);
-        intent.putExtra(QuestData.QUEST_GIVER, questGiver);
-        intent.putExtra(QuestData.QUEST_DESCRIPTION, questDescription);
-        intent.putExtra(QuestData.QUEST_ALIGNMENT, questAlignment);
+
+        QuestData quest = questList[position];
+        intent.putExtra(QuestData.QUEST_NAME, quest.getName());
+        intent.putExtra(QuestData.QUEST_ALIGNMENT, quest.getAlignment());
+        intent.putExtra(QuestData.QUEST_DESCRIPTION, quest.getDescription());
+        intent.putExtra(QuestData.QUEST_GIVER, quest.getQuestGiver());
+
         startActivity(intent);
     }
 
@@ -114,28 +95,6 @@ public class QuestListActivity extends ActionBarActivity {
         SharedPreferences savedSettings = getSharedPreferences("accountSettings", MODE_PRIVATE);
         int alignment = savedSettings.getInt(SettingsActivity.ALIGNMENT_KEY, 1);
 
-        RelativeLayout quest;
-
-        // Show quest 1 if Good or Neutral
-        quest = (RelativeLayout) findViewById(R.id.Quest1Layout);
-        if (alignment < 2){
-            quest.setVisibility(View.VISIBLE);
-        } else {
-            quest.setVisibility(View.GONE);
-        }
-        // Show quest 2 if Neutral
-        quest = (RelativeLayout) findViewById(R.id.Quest2Layout);
-        if (alignment == 1){
-            quest.setVisibility(View.VISIBLE);
-        } else {
-            quest.setVisibility(View.GONE);
-        }
-        // Show quest 3 if Neutral or Evil
-        quest = (RelativeLayout) findViewById(R.id.Quest3Layout);
-        if (alignment > 0){
-            quest.setVisibility(View.VISIBLE);
-        } else {
-            quest.setVisibility(View.GONE);
-        }
+        //redo alignment filtering
     }
 }
