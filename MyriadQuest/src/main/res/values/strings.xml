@@ -13,6 +13,12 @@
 
     <string name="title_activity_quest_list">Quest List</string>
 
+    <string name="questNameDefault">Quest Name</string>
+    <string name="questGiverText">Posted by:\ </string>
+    <string name="questGiverDefault">Quest Giver</string>
+    <string name="alignmentText">Alignment:\ </string>
+    <string name="alignmentDefault">Good/Neutral/Evil</string>
+    <string name="descriptionDefault">Description</string>
     <string name="reward">Reward: 10000 Gold, 10000 XP</string>
 
     <string name="quest1Name">Bandits in the Woods</string>
