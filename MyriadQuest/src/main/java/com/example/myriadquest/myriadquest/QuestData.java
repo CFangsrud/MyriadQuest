@@ -40,11 +40,23 @@ public class QuestData {
      * which results in the float array {-45.52, 23.1}.
      */
     private float[] makeFloatCoords(String source){
+        float[] coords = new float[2];
         String[] splitCoords = source.split("[(,\\s)]");
-        return new float[]{
-                Float.parseFloat(splitCoords[0]),
-                Float.parseFloat(splitCoords[1])
-        };
+
+        int i = 0;
+        for(String s : splitCoords)
+        {
+            try {
+                coords[i] = Float.parseFloat(s);
+                i++;                            // 'i' should only increment when successful float parsed
+            }
+            catch (NumberFormatException e){}   // For possible empty Strings and other non-floats
+
+            if (i == coords.length) break;      // Prevent ArrayIndexOutOfBoundsException
+
+        }
+
+        return coords;
     }
 
     // Constructor given an array of Strings. Only the first 6 are used.
