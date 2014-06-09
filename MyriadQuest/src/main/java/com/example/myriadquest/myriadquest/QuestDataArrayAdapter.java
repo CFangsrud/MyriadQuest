@@ -7,11 +7,13 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 public class QuestDataArrayAdapter extends ArrayAdapter<QuestData>{
     private final Context context;
-    private final QuestData[] questList;
+    private final ArrayList<QuestData> questList;
 
-    public QuestDataArrayAdapter(Context context, QuestData[] questList){
+    public QuestDataArrayAdapter(Context context, ArrayList<QuestData> questList){
         super(context, R.layout.quest_list_row, questList);
         this.context = context;
         this.questList = questList;
@@ -20,7 +22,7 @@ public class QuestDataArrayAdapter extends ArrayAdapter<QuestData>{
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
 
-        QuestData quest = questList[position];
+        QuestData quest = questList.get(position);
 
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View questView = inflater.inflate(R.layout.quest_list_row, parent, false);

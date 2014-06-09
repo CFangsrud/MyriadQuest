@@ -9,10 +9,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 
+import java.util.ArrayList;
+
 
 public class QuestListActivity extends ListActivity {
 
     private QuestData[] questList;
+    private QuestDataArrayAdapter questListAdapter;
+
     public static final int ALIGNMENT_UPDATED = 1;
 
     @Override
@@ -20,29 +24,24 @@ public class QuestListActivity extends ListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quest_list);
 
-        questList = loadQuestData();
+        loadQuestData();        // Load all quests into questList
 
-        setListAdapter(new QuestDataArrayAdapter(this, questList));
-        updateListVisibility();
+        questListAdapter = new QuestDataArrayAdapter(this, getVisibleQuestList());
+        setListAdapter(questListAdapter);
     }
 
-    /** Get the quest data for the list adapter.
+    /** Get the quest data for the list adapter, storing them in questList
      *
      * At the moment, only "offline" data.
      */
-    private QuestData[] loadQuestData() {
-        QuestData[] questList = new QuestData[3];
+    private void loadQuestData() {
+        questList = new QuestData[3];
 
-        String[] questStrings = getResources().getStringArray(R.array.quest0);
-        questList[0] = new QuestData(questStrings);
+        questList[0] = new QuestData(getResources().getStringArray(R.array.quest0));
+        questList[1] = new QuestData(getResources().getStringArray(R.array.quest1));
+        questList[2] = new QuestData(getResources().getStringArray(R.array.quest2));
 
-        questStrings = getResources().getStringArray(R.array.quest1);
-        questList[1] = new QuestData(questStrings);
-
-        questStrings = getResources().getStringArray(R.array.quest2);
-        questList[2] = new QuestData(questStrings);
-
-        return questList;
+        return;
     }
 
 
@@ -91,10 +90,45 @@ public class QuestListActivity extends ListActivity {
 
     /** Update the quest list based on user alignment. **/
     private void updateListVisibility(){
+        questListAdapter.clear();
+        ArrayList<QuestData> visibleQuests = getVisibleQuestList();
+        
+        for (QuestData v : visibleQuests)
+            questListAdapter.add(v);
+        
+        questListAdapter.notifyDataSetChanged();
+    }
+
+    /** Return an ArrayList<QuestData> containing only the quests which are visible according
+     *  to the hero's alignment.
+     */
+    private ArrayList<QuestData> getVisibleQuestList(){
+        ArrayList<QuestData> visibleList = new ArrayList<QuestData>();
 
         SharedPreferences savedSettings = getSharedPreferences("accountSettings", MODE_PRIVATE);
-        int alignment = savedSettings.getInt(SettingsActivity.ALIGNMENT_KEY, 1);
+        int heroAlign = savedSettings.getInt(SettingsActivity.ALIGNMENT_KEY, 1);
 
-        //redo alignment filtering
+        for (QuestData quest : questList){
+            String questAlign = quest.getAlignment().toLowerCase();
+
+            switch (heroAlign){
+                case 0:     // Good alignment, only show Good quests
+                    if (questAlign.equalsIgnoreCase("good"))
+                        visibleList.add(quest);
+                    break;
+                case 2:     // Evil alignment, only show Evil quests
+                    if (questAlign.equalsIgnoreCase("evil"))
+                        visibleList.add(quest);
+                    break;
+                default:
+                case 1:     // Neutral alignment, show all quests
+                    visibleList.add(quest);
+                    break;
+            }
+        }
+
+        visibleList.trimToSize();
+
+        return visibleList;
     }
 }
