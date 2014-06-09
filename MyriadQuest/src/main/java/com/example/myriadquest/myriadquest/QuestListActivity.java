@@ -79,7 +79,7 @@ public class QuestListActivity extends ListActivity {
     public void onListItemClick(ListView l, View v, int position, long id){
         Intent intent = new Intent(this, QuestDetailActivity.class);
 
-        QuestData quest = questList[position];
+        QuestData quest = questListAdapter.getItem(position);
         intent.putExtra(QuestData.QUEST_NAME, quest.getName());
         intent.putExtra(QuestData.QUEST_ALIGNMENT, quest.getAlignment());
         intent.putExtra(QuestData.QUEST_DESCRIPTION, quest.getDescription());
