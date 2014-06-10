@@ -14,9 +14,9 @@ public class QuestData {
     private String name, alignment, description, location, giver, giverLocation;
 
     // Store location coordinate data as actual numbers.
-    private float[] questLoc, giverLoc;
+    private double[] questLoc, giverLoc;
 
-    /** Constructor given 6 individual Strings.
+    /** Constructor given 6 Strings.
      *
      * The Strings location and giverLocation are coordinates, and must be
      * able to be split by String.split("[(,\s)]").  For instance "(-45.52, 23.1)" is valid.
@@ -30,38 +30,38 @@ public class QuestData {
         this.giver = giver;
         this.giverLocation = giverLocation;
 
-        this.questLoc = makeFloatCoords(location);
-        this.giverLoc = makeFloatCoords(giverLocation);
+        this.questLoc = makeCoords(location);
+        this.giverLoc = makeCoords(giverLocation);
     }
 
-    /** Helper method to split coordinate Strings into a pair of floats.
+    /** Constructor given an array of Strings. Exactly 6 are used. */
+    public QuestData(String[] s) {
+        this(s[0], s[1], s[2], s[3], s[4], s[5]);
+    }
+
+    /** Helper method to split coordinate Strings into a pair of doubles.
      *
      * The String source is assumed to be formatted like "(-45.52, 23.1)"
-     * which results in the float array {-45.52, 23.1}.
+     * which results in the double array {-45.52, 23.1}.
      */
-    private float[] makeFloatCoords(String source){
-        float[] coords = new float[2];
+    private double[] makeCoords(String source){
+        double[] coords = new double[2];
         String[] splitCoords = source.split("[(,\\s)]");
 
         int i = 0;
         for(String s : splitCoords)
         {
             try {
-                coords[i] = Float.parseFloat(s);
-                i++;                            // 'i' should only increment when successful float parsed
+                coords[i] = Double.parseDouble(s);
+                i++;                            // 'i' should only increment after a successful parse
             }
-            catch (NumberFormatException e){}   // For possible empty Strings and other non-floats
+            catch (NumberFormatException e){}   // For possible empty Strings and other non-doubles
 
             if (i == coords.length) break;      // Prevent ArrayIndexOutOfBoundsException
 
         }
 
         return coords;
-    }
-
-    // Constructor given an array of Strings. Only the first 6 are used.
-    public QuestData(String[] s) {
-        this(s[0], s[1], s[2], s[3], s[4], s[5]);
     }
 
     public String getName(){
@@ -88,7 +88,7 @@ public class QuestData {
     /** Return the quest location coordinates in an array of size 2.
      * Use index [0] for the x-coordinate, [1] for the y-coordinate.
      */
-    public float[] getQuestLocationCoords(){
+    public double[] getQuestLocationCoords(){
         return questLoc;
     }
 
@@ -100,7 +100,7 @@ public class QuestData {
     /** Return the quest giver's location coordinates in an array of size 2.
      * Use index [0] for the x-coordinate, [1] for the y-coordinate.
      */
-    public float[] getQuestGiverLocationCoords(){
+    public double[] getQuestGiverLocationCoords(){
         return giverLoc;
     }
 }

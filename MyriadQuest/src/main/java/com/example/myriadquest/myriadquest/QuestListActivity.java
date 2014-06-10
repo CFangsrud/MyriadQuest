@@ -88,7 +88,7 @@ public class QuestListActivity extends ListActivity {
         startActivity(intent);
     }
 
-    /** Update the quest list based on user alignment. **/
+    /** Update the list of visible quests based on user alignment. **/
     private void updateListVisibility(){
         questListAdapter.clear();
         ArrayList<QuestData> visibleQuests = getVisibleQuestList();
