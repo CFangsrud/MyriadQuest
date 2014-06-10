@@ -21,15 +21,12 @@ public class QuestDetailActivity extends ActionBarActivity {
         TextView questAlignmentView = (TextView) findViewById(R.id.alignmentValue);
 
         Intent intent = getIntent();
-        String questName = intent.getStringExtra(QuestData.QUEST_NAME);
-        String questGiver = intent.getStringExtra(QuestData.QUEST_GIVER);
-        String questDescription = intent.getStringExtra(QuestData.QUEST_DESCRIPTION);
-        String questAlignment = intent.getStringExtra(QuestData.QUEST_ALIGNMENT);
+        QuestData quest = intent.getParcelableExtra(QuestData.QUEST);
 
-        questNameView.setText(questName);
-        questGiverView.setText(questGiver);
-        questDescriptionView.setText(questDescription);
-        questAlignmentView.setText(questAlignment);
+        questNameView.setText(quest.getName());
+        questGiverView.setText(quest.getQuestGiver() + " @ " + quest.getQuestGiverLocationString());
+        questDescriptionView.setText(quest.getDescription());
+        questAlignmentView.setText(quest.getAlignment());
     }
 
     @Override
