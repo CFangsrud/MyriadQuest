@@ -7,8 +7,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+
 
 public class QuestDetailActivity extends ActionBarActivity {
+
+    QuestData quest;
+    private GoogleMap map;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,17 +29,20 @@ public class QuestDetailActivity extends ActionBarActivity {
         TextView questAlignmentView = (TextView) findViewById(R.id.alignmentValue);
 
         Intent intent = getIntent();
-        QuestData quest = intent.getParcelableExtra(QuestData.QUEST);
+        quest = intent.getParcelableExtra(QuestData.QUEST);
 
         questNameView.setText(quest.getName());
         questGiverView.setText(quest.getQuestGiver() + " @ " + quest.getQuestGiverLocationString());
         questDescriptionView.setText(quest.getDescription());
         questAlignmentView.setText(quest.getAlignment());
+
+        initializeMap();
+
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        
+
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.quest_detail, menu);
         return true;
@@ -49,4 +60,27 @@ public class QuestDetailActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initializeMap();
+    }
+
+    private void initializeMap() {
+        if (map == null){
+            map = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map)).getMap();
+
+            if (map != null) {
+                putQuestMarker(quest.getQuestLocationCoords());
+                putQuestMarker(quest.getQuestGiverLocationCoords());
+            }
+        }
+    }
+
+    /** Add a marker to the map at a specific location. */
+    private void putQuestMarker(double[] coordinates) {
+        LatLng questLL = new LatLng(coordinates[0], coordinates[1]);
+        MarkerOptions questMarker = new MarkerOptions().position(questLL);
+        map.addMarker(questMarker);
+    }
 }

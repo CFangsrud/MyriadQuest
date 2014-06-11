@@ -55,7 +55,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Good/Neutral/Evil"
+        android:text="@string/alignmentDefault"
         android:id="@+id/alignmentValue"
         android:layout_below="@+id/giver"
         android:layout_toRightOf="@+id/alignment" />
@@ -66,10 +66,10 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/reward"
         android:id="@+id/reward"
-        android:layout_below="@+id/giver"
+        android:layout_below="@+id/alignment"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="29dp" />
+        android:layout_marginTop="16dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -80,6 +80,17 @@
         android:layout_below="@+id/reward"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="29dp" />
+        android:layout_marginTop="16dp" />
+
+    <fragment
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:id="@+id/map"
+        android:layout_below="@+id/description"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="16dp" />
 
 </RelativeLayout>
