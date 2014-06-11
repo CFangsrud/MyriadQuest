@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
@@ -32,7 +33,7 @@ public class QuestDetailActivity extends ActionBarActivity {
         quest = intent.getParcelableExtra(QuestData.QUEST);
 
         questNameView.setText(quest.getName());
-        questGiverView.setText(quest.getQuestGiver() + " @ " + quest.getQuestGiverLocationString());
+        questGiverView.setText(quest.getQuestGiver());
         questDescriptionView.setText(quest.getDescription());
         questAlignmentView.setText(quest.getAlignment());
 
@@ -71,8 +72,15 @@ public class QuestDetailActivity extends ActionBarActivity {
             map = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map)).getMap();
 
             if (map != null) {
-                putQuestMarker(quest.getQuestLocationCoords());
-                putQuestMarker(quest.getQuestGiverLocationCoords());
+                double[] questCoords = quest.getQuestLocationCoords();
+                putQuestMarker(questCoords);
+                double[] giverCoords = quest.getQuestGiverLocationCoords();
+                putQuestMarker(giverCoords);
+
+                double centerLat = (questCoords[0] + giverCoords[0]) / 2.0;
+                double centerLng = (questCoords[1] + giverCoords[1]) / 2.0;
+                LatLng center = new LatLng(centerLat, centerLng);
+                map.moveCamera(CameraUpdateFactory.newLatLngZoom(center, 12));
             }
         }
     }
