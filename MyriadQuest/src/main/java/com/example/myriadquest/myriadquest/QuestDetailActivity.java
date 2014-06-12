@@ -11,6 +11,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 
@@ -72,15 +73,28 @@ public class QuestDetailActivity extends ActionBarActivity {
             map = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map)).getMap();
 
             if (map != null) {
-                double[] questCoords = quest.getQuestLocationCoords();
+                final double[] questCoords = quest.getQuestLocationCoords();
                 putQuestMarker(questCoords);
-                double[] giverCoords = quest.getQuestGiverLocationCoords();
+                final double[] giverCoords = quest.getQuestGiverLocationCoords();
                 putQuestMarker(giverCoords);
 
+                // Center the map on the quest markers and zoom.  Can be done before map is loaded.
                 double centerLat = (questCoords[0] + giverCoords[0]) / 2.0;
                 double centerLng = (questCoords[1] + giverCoords[1]) / 2.0;
                 LatLng center = new LatLng(centerLat, centerLng);
                 map.moveCamera(CameraUpdateFactory.newLatLngZoom(center, 12));
+
+                // Only once the map is loaded, fit the zoom to the map points more accurately.
+                map.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback(){
+                    @Override
+                    public void onMapLoaded() {
+                        LatLng southwest = new LatLng(Math.min(questCoords[0], giverCoords[0]), Math.min(questCoords[1], giverCoords[1]));
+                        LatLng northeast = new LatLng(Math.max(questCoords[0], giverCoords[0]), Math.max(questCoords[1], giverCoords[1]));
+
+                        LatLngBounds zoomBounds = new LatLngBounds(southwest, northeast);
+                        map.moveCamera(CameraUpdateFactory.newLatLngBounds(zoomBounds, 50));
+                    }
+                });
             }
         }
     }
