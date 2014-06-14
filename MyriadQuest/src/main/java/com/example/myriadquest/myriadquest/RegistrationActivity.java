@@ -1,6 +1,5 @@
 package com.example.myriadquest.myriadquest;
 
-import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -9,6 +8,10 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+
+import com.parse.ParseException;
+import com.parse.ParseUser;
+import com.parse.SignUpCallback;
 
 
 public class RegistrationActivity extends ActionBarActivity {
@@ -57,8 +60,35 @@ public class RegistrationActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
+    /** Attempt to register a new user */
     public void beginRegistration(View view) {
+        String desiredUsername = userText.getText().toString();
+        String desiredPassword = passwordText.getText().toString();
+        String desiredName = nameText.getText().toString();
 
+        if (desiredUsername.equals("")) {
+            userText.setError("Required");
+        } else if (desiredPassword.equals("")) {
+            passwordText.setError("Required");
+        } else if (desiredName.equals("")) {
+            nameText.setError("Required");
+        } else { // The registration fields are not empty, attempt creating new account
+
+            final ParseUser attemptTo = new ParseUser();
+            attemptTo.setUsername(desiredUsername);
+            attemptTo.setPassword(desiredPassword);
+            attemptTo.signUpInBackground(new SignUpCallback() {
+                @Override
+                public void done(ParseException e) {
+                    if (e == null) { // Registration was successful
+                        setResult(RESULT_OK);
+                        finish();
+                    } else if (e.getCode() == ParseException.USERNAME_TAKEN) {
+                        userText.setError("Username unavailable");
+                    }
+                }
+            });
+
+        }
     }
 }

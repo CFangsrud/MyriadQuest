@@ -11,7 +11,6 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 
 import com.parse.LogInCallback;
-import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 
@@ -21,6 +20,8 @@ public class MainActivity extends ActionBarActivity {
     public static final String
             SAVE_LOGIN_KEY = "com.example.myriadquest.SAVE_LOGIN",
             USERNAME_KEY = "com.example.myriadquest.USERNAME";
+
+    public static final int REGISTRATION = 1;
 
     private SharedPreferences savedSettings;
     private SharedPreferences.Editor savedSettingsEditor;
@@ -52,9 +53,6 @@ public class MainActivity extends ActionBarActivity {
                 userText.setText(savedUsername);
             }
         }
-
-        // Initialize the Parse
-        Parse.initialize(this, "6HnBaZ2nGmvu55xwXaH9zU7t9pVgZyRJa9GOc1Te", "VqwDbwKCBeMgjZY7G3JLU7wDWcb7WZIPMvehyyBi");
     }
 
     @Override
@@ -103,12 +101,15 @@ public class MainActivity extends ActionBarActivity {
         }
     }
 
-    /** Finish the final steps of logging in:
+    /** Finish the final steps of logging in, consisting of:
      *   1. Remembering the Username if desired
      *   2. Starting the QuestListActivity
      */
     private void finishLogin(ParseUser user) {
         if (user != null) {
+            // Always clear password field
+            passwordText.setText("");
+
             isLoginSaved = saveLoginBox.isChecked();
             savedSettingsEditor.putBoolean(SAVE_LOGIN_KEY, isLoginSaved);
 
@@ -116,6 +117,7 @@ public class MainActivity extends ActionBarActivity {
                 savedSettingsEditor.putString(USERNAME_KEY, user.getUsername());
             }
             else { // else clear saved username.
+                userText.setText("");
                 savedSettingsEditor.remove(USERNAME_KEY);
             }
             savedSettingsEditor.commit();
@@ -132,6 +134,17 @@ public class MainActivity extends ActionBarActivity {
         // Send through any entered Username to the registration, so it does not need to be retyped
         intent.putExtra(USERNAME_KEY, userText.getText().toString());
 
-        startActivity(intent);
+        startActivityForResult(intent, REGISTRATION);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // Auto-login following a successful registration
+        if (requestCode == REGISTRATION && resultCode == RESULT_OK) {
+            ParseUser user = ParseUser.getCurrentUser();
+            if (user != null) {
+                startActivity(new Intent(this, QuestListActivity.class));
+            }
+        }
     }
 }
