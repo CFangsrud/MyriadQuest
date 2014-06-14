@@ -65,6 +65,7 @@ public class RegistrationActivity extends ActionBarActivity {
         String desiredUsername = userText.getText().toString();
         String desiredPassword = passwordText.getText().toString();
         String desiredName = nameText.getText().toString();
+        int alignment = alignmentSpinner.getSelectedItemPosition();
 
         if (desiredUsername.equals("")) {
             userText.setError("Required");
@@ -74,9 +75,11 @@ public class RegistrationActivity extends ActionBarActivity {
             nameText.setError("Required");
         } else { // The registration fields are not empty, attempt creating new account
 
-            final ParseUser attemptTo = new ParseUser();
+            ParseUser attemptTo = new ParseUser();
             attemptTo.setUsername(desiredUsername);
             attemptTo.setPassword(desiredPassword);
+            attemptTo.put("name", desiredName);
+            attemptTo.put("alignment", alignment);
             attemptTo.signUpInBackground(new SignUpCallback() {
                 @Override
                 public void done(ParseException e) {
