@@ -10,15 +10,22 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
+import com.parse.LogInCallback;
+import com.parse.Parse;
+import com.parse.ParseException;
+import com.parse.ParseUser;
+
 
 public class MainActivity extends ActionBarActivity {
 
-    public static final String SAVE_LOGIN_KEY = "com.example.myriadquest.SAVE_LOGIN";
-    public static final String USERNAME_KEY = "com.example.myriadquest.USERNAME";
+    public static final String
+            SAVE_LOGIN_KEY = "com.example.myriadquest.SAVE_LOGIN",
+            USERNAME_KEY = "com.example.myriadquest.USERNAME";
 
     private SharedPreferences savedSettings;
     private SharedPreferences.Editor savedSettingsEditor;
 
+    private EditText userText, passwordText;
     private CheckBox saveLoginBox;
     private boolean isLoginSaved;
 
@@ -27,24 +34,27 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        userText = (EditText) findViewById(R.id.username);
+        passwordText = (EditText) findViewById(R.id.password);
+
         savedSettings = getSharedPreferences("loginSettings", MODE_PRIVATE);
         savedSettingsEditor = savedSettings.edit();
 
+        // Display saved username, if any has been saved.
         saveLoginBox = (CheckBox) findViewById(R.id.saveLoginCheckBox);
         isLoginSaved = savedSettings.getBoolean(SAVE_LOGIN_KEY, false);
-
-        // Display saved username, if any has been saved.
         saveLoginBox.setChecked(isLoginSaved);
         if (isLoginSaved){
-            EditText usernameField = (EditText) findViewById(R.id.username);
             String savedUsername = savedSettings.getString(USERNAME_KEY, "");
             if (savedUsername.equals("")){
-                usernameField.setText("No Saved Username");
+                userText.setText("No Saved Username");
             } else {
-                usernameField.setText(savedUsername);
+                userText.setText(savedUsername);
             }
         }
 
+        // Initialize the Parse
+        Parse.initialize(this, "6HnBaZ2nGmvu55xwXaH9zU7t9pVgZyRJa9GOc1Te", "VqwDbwKCBeMgjZY7G3JLU7wDWcb7WZIPMvehyyBi");
     }
 
     @Override
@@ -69,12 +79,6 @@ public class MainActivity extends ActionBarActivity {
 
     /** Verify that the given login details are valid. **/
     public void verifyLogin(View view) {
-        String validUser = getResources().getString(R.string.validUsername);
-        String validUserPassword = getResources().getString(R.string.validPassword);
-
-        EditText userText = (EditText) findViewById(R.id.username);
-        EditText passwordText = (EditText) findViewById(R.id.password);
-
         String enteredUser = userText.getText().toString();
         String enteredPassword = passwordText.getText().toString();
 
@@ -82,25 +86,52 @@ public class MainActivity extends ActionBarActivity {
             userText.setError("Required");
         } else if (enteredPassword.equals("")) {
             passwordText.setError("Required");
-        } else if (enteredUser.equals(validUser) && enteredPassword.equals(validUserPassword)) {
-            // Only save username when the username is valid
+        } else { // The login fields are not empty, attempt logging in.
+
+            ParseUser.logInInBackground(enteredUser, enteredPassword, new LogInCallback() {
+                @Override
+                public void done(ParseUser parseUser, ParseException e) {
+                    if (parseUser != null && e == null) { // Login succeeded
+                        finishLogin(parseUser);
+                    } else if (parseUser == null) { // Login failed because something invalid...
+                        userText.setError("Invalid username or password");
+                        passwordText.setError("Invalid username or password");
+                    }
+                }
+            });
+
+        }
+    }
+
+    /** Finish the final steps of logging in:
+     *   1. Remembering the Username if desired
+     *   2. Starting the QuestListActivity
+     */
+    private void finishLogin(ParseUser user) {
+        if (user != null) {
             isLoginSaved = saveLoginBox.isChecked();
             savedSettingsEditor.putBoolean(SAVE_LOGIN_KEY, isLoginSaved);
-            if (isLoginSaved){
-                savedSettingsEditor.putString(USERNAME_KEY, enteredUser);
+
+            if (isLoginSaved) {
+                savedSettingsEditor.putString(USERNAME_KEY, user.getUsername());
             }
-            // else clear saved username.
-            else {
+            else { // else clear saved username.
                 savedSettingsEditor.remove(USERNAME_KEY);
             }
             savedSettingsEditor.commit();
 
-            Intent intent = new Intent(this, QuestListActivity.class);
-            startActivity(intent);
-
-        } else {
-            userText.setError("Invalid username or password");
-            passwordText.setError("Invalid username or password");
+            // Login process complete, start quest list
+            startActivity(new Intent(this, QuestListActivity.class));
         }
+    }
+
+    /** Take the user to the sign up screen */
+    public void beginRegistration(View view) {
+        Intent intent = new Intent(this, RegistrationActivity.class);
+
+        // Send through any entered Username to the registration, so it does not need to be retyped
+        intent.putExtra(USERNAME_KEY, userText.getText().toString());
+
+        startActivity(intent);
     }
 }

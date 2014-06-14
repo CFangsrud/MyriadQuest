@@ -6,7 +6,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.example.myriadquest.myriadquest.MainActivity">
+    tools:context="com.example.myriadquest.myriadquest.RegistrationActivity">
 
     <EditText
         android:layout_width="wrap_content"
@@ -30,35 +30,31 @@
         android:layout_below="@+id/username"
         android:layout_alignLeft="@+id/username"
         android:password="true"
-        android:selectAllOnFocus="false"
+        android:selectAllOnFocus="true"
         android:hint="@string/password"
         android:layout_marginTop="5dp" />
-
-    <CheckBox
+    <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/saveLoginText"
-        android:id="@+id/saveLoginCheckBox"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/signUpName"
         android:layout_below="@+id/password"
         android:layout_alignLeft="@+id/password"
         android:layout_alignStart="@+id/password"
-        android:layout_alignRight="@+id/password"
-        android:layout_alignEnd="@+id/password"
-        android:checked="false"
-        android:layout_marginTop="16dp" />
+        android:layout_marginTop="5dp"
+        android:hint="@string/signUpName" />
 
-    <Button
+    <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/login"
-        android:id="@+id/loginButton"
-        android:onClick="verifyLogin"
-        android:layout_below="@+id/saveLoginCheckBox"
-        android:layout_alignLeft="@+id/password"
-        android:layout_alignStart="@+id/password"
-        android:layout_alignRight="@+id/saveLoginCheckBox"
-        android:layout_alignEnd="@+id/saveLoginCheckBox"
-        android:layout_marginTop="16dp" />
+        android:id="@+id/alignmentSpinner"
+        android:layout_below="@+id/signUpName"
+        android:layout_marginTop="10dp"
+        android:layout_alignLeft="@+id/signUpName"
+        android:layout_alignStart="@+id/signUpName"
+        android:layout_alignRight="@+id/signUpName"
+        android:layout_alignEnd="@+id/signUpName" />
 
     <Button
         android:layout_width="wrap_content"
@@ -66,10 +62,10 @@
         android:text="@string/signUp"
         android:id="@+id/signUpButton"
         android:layout_below="@+id/password"
-        android:layout_alignLeft="@+id/loginButton"
-        android:layout_alignStart="@+id/loginButton"
-        android:layout_alignRight="@+id/loginButton"
-        android:layout_alignEnd="@+id/loginButton"
+        android:layout_alignLeft="@+id/alignmentSpinner"
+        android:layout_alignStart="@+id/alignmentSpinner"
+        android:layout_alignRight="@+id/alignmentSpinner"
+        android:layout_alignEnd="@+id/alignmentSpinner"
         android:layout_marginTop="122dp"
         android:onClick="beginRegistration" />
 

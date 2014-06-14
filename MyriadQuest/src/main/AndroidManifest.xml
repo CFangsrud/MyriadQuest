@@ -2,18 +2,26 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.myriadquest.myriadquest" >
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <uses-feature
         android:glEsVersion="0x00020000"
-        android:required="true"/>
+        android:required="true" />
 
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="AIzaSyAAVIELGRkxd9ak6iOIBwKq9utG5wX485E" />
+
         <activity
             android:name="com.example.myriadquest.myriadquest.MainActivity"
             android:label="@string/app_name" >
@@ -47,12 +55,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.myriadquest.myriadquest.QuestListActivity" />
         </activity>
-        <meta-data
-            android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />
-        <meta-data
-            android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyAAVIELGRkxd9ak6iOIBwKq9utG5wX485E"/>
+        <activity
+            android:name="com.example.myriadquest.myriadquest.RegistrationActivity"
+            android:label="@string/title_activity_registration" >
+        </activity>
     </application>
 
 </manifest>

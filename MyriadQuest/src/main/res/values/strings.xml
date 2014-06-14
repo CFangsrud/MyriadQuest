@@ -8,8 +8,7 @@
     <string name="password">Password</string>
     <string name="saveLoginText">Remember Username</string>
     <string name="login">Log In!</string>
-    <string name="validUsername">Lancelot</string>
-    <string name="validPassword">arthurDoesntKnow</string>
+    <string name="signUp">Sign Up!</string>
 
     <string name="title_activity_quest_list">Quest List</string>
 
@@ -33,6 +32,9 @@
         <item>Neutral</item>
         <item>Evil</item>
     </string-array>
+
+    <string name="title_activity_registration">Register</string>
+    <string name="signUpName">Name</string>
 
     <!-- "Offline" Quest data -->
     <string-array name="quest0">
