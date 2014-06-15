@@ -1,7 +1,6 @@
 package com.example.myriadquest.myriadquest;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.app.ListActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -14,15 +13,10 @@ import com.parse.ParseQuery;
 import com.parse.ParseQueryAdapter;
 import com.parse.ParseUser;
 
-import java.util.ArrayList;
-
 
 public class QuestListActivity extends ListActivity {
 
     public static final int ALIGNMENT_UPDATED = 1;
-
-    private QuestData[] questList;
-    private QuestDataArrayAdapter questListAdapter;
 
     private ParseUser user;
     private QuestAdapter adapter;
@@ -39,31 +33,13 @@ public class QuestListActivity extends ListActivity {
             @Override
             public ParseQuery create() {
                 ParseQuery query = new ParseQuery(QuestApp.QUEST_DATABASE);
-                query.include("User.name");
+                query.include("_User");
                 return query;
             }
         });
 
         setListAdapter(adapter);
-
-        loadQuestData();        // Load all quests into questList
-        questListAdapter = new QuestDataArrayAdapter(this, getVisibleQuestList());
     }
-
-    /** Get the quest data for the list adapter, storing them in questList
-     *
-     * At the moment, only "offline" data.
-     */
-    private void loadQuestData() {
-        questList = new QuestData[3];
-
-        questList[0] = new QuestData(getResources().getStringArray(R.array.quest0));
-        questList[1] = new QuestData(getResources().getStringArray(R.array.quest1));
-        questList[2] = new QuestData(getResources().getStringArray(R.array.quest2));
-
-        return;
-    }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -99,53 +75,15 @@ public class QuestListActivity extends ListActivity {
     public void onListItemClick(ListView l, View v, int position, long id){
         Intent intent = new Intent(this, QuestDetailActivity.class);
 
-        QuestData quest = questListAdapter.getItem(position);
-        intent.putExtra(QuestData.QUEST, quest);
+        String questId = adapter.getItem(position).getObjectId();
+        intent.putExtra(QuestApp.OBJECTID_KEY, questId);
 
         startActivity(intent);
     }
 
-    /** Update the list of visible quests based on user alignment. **/
+    /** Update the list of visible quests based on user alignment
+     * and the desired quest status. **/
     private void updateListVisibility(){
-        questListAdapter.clear();
-        ArrayList<QuestData> visibleQuests = getVisibleQuestList();
-        
-        for (QuestData v : visibleQuests)
-            questListAdapter.add(v);
-        
-        questListAdapter.notifyDataSetChanged();
-    }
 
-    /** Return an ArrayList<QuestData> containing only the quests which are visible according
-     *  to the hero's alignment.
-     */
-    private ArrayList<QuestData> getVisibleQuestList(){
-        ArrayList<QuestData> visibleList = new ArrayList<QuestData>();
-
-        SharedPreferences savedSettings = getSharedPreferences("accountSettings", MODE_PRIVATE);
-        int heroAlign = savedSettings.getInt(QuestApp.ALIGNMENT_KEY, 1);
-
-        for (QuestData quest : questList){
-            String questAlign = quest.getAlignment().toLowerCase();
-
-            switch (heroAlign){
-                case 0:     // Good alignment, only show Good quests
-                    if (questAlign.equalsIgnoreCase("good"))
-                        visibleList.add(quest);
-                    break;
-                case 2:     // Evil alignment, only show Evil quests
-                    if (questAlign.equalsIgnoreCase("evil"))
-                        visibleList.add(quest);
-                    break;
-                default:
-                case 1:     // Neutral alignment, show all quests
-                    visibleList.add(quest);
-                    break;
-            }
-        }
-
-        visibleList.trimToSize();
-
-        return visibleList;
     }
 }
