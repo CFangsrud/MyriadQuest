@@ -9,25 +9,45 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.parse.ParseQueryAdapter;
+import com.parse.ParseUser;
+
 import java.util.ArrayList;
 
 
 public class QuestListActivity extends ListActivity {
 
+    public static final int ALIGNMENT_UPDATED = 1;
+
     private QuestData[] questList;
     private QuestDataArrayAdapter questListAdapter;
 
-    public static final int ALIGNMENT_UPDATED = 1;
+    private ParseUser user;
+    private QuestAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quest_list);
 
-        loadQuestData();        // Load all quests into questList
+        user = ParseUser.getCurrentUser();
 
+        // See ALL quests
+        adapter = new QuestAdapter(this, new ParseQueryAdapter.QueryFactory<ParseObject>(){
+            @Override
+            public ParseQuery create() {
+                ParseQuery query = new ParseQuery(QuestApp.QUEST_DATABASE);
+                query.include("User.name");
+                return query;
+            }
+        });
+
+        setListAdapter(adapter);
+
+        loadQuestData();        // Load all quests into questList
         questListAdapter = new QuestDataArrayAdapter(this, getVisibleQuestList());
-        setListAdapter(questListAdapter);
     }
 
     /** Get the quest data for the list adapter, storing them in questList

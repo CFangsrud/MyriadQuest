@@ -12,7 +12,12 @@ public class QuestApp extends Application {
             USERNAME_KEY = "username",
             NAME_KEY = "name",
             LOCATION_KEY = "location",
-            ALIGNMENT_KEY = "alignment";
+            ALIGNMENT_KEY = "alignment",
+
+            QUEST_DATABASE = "Quests",
+            QUESTGIVER_KEY = "questGiver",
+            ACCEPTEDBY_KEY = "acceptedBy",
+            COMPLETED_KEY = "completed";
 
     @Override
     public void onCreate() {
