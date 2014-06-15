@@ -17,9 +17,7 @@ import com.parse.ParseUser;
 
 public class MainActivity extends ActionBarActivity {
 
-    public static final String
-            SAVE_LOGIN_KEY = "com.example.myriadquest.SAVE_LOGIN",
-            USERNAME_KEY = "com.example.myriadquest.USERNAME";
+    public static final String SAVE_LOGIN_KEY = "com.example.myriadquest.SAVE_LOGIN";
 
     public static final int REGISTRATION = 1;
 
@@ -46,7 +44,7 @@ public class MainActivity extends ActionBarActivity {
         isLoginSaved = savedSettings.getBoolean(SAVE_LOGIN_KEY, false);
         saveLoginBox.setChecked(isLoginSaved);
         if (isLoginSaved){
-            String savedUsername = savedSettings.getString(USERNAME_KEY, "");
+            String savedUsername = savedSettings.getString(QuestApp.USERNAME_KEY, "");
             if (savedUsername.equals("")){
                 userText.setText("No Saved Username");
             } else {
@@ -114,11 +112,11 @@ public class MainActivity extends ActionBarActivity {
             savedSettingsEditor.putBoolean(SAVE_LOGIN_KEY, isLoginSaved);
 
             if (isLoginSaved) {
-                savedSettingsEditor.putString(USERNAME_KEY, user.getUsername());
+                savedSettingsEditor.putString(QuestApp.USERNAME_KEY, user.getUsername());
             }
             else { // else clear saved username.
                 userText.setText("");
-                savedSettingsEditor.remove(USERNAME_KEY);
+                savedSettingsEditor.remove(QuestApp.USERNAME_KEY);
             }
             savedSettingsEditor.commit();
 
@@ -131,8 +129,8 @@ public class MainActivity extends ActionBarActivity {
     public void beginRegistration(View view) {
         Intent intent = new Intent(this, RegistrationActivity.class);
 
-        // Send through any entered Username to the registration, so it does not need to be retyped
-        intent.putExtra(USERNAME_KEY, userText.getText().toString());
+        // Send through anything entered in "Username" to the registration, so it does not need to be retyped
+        intent.putExtra(QuestApp.USERNAME_KEY, userText.getText().toString());
 
         startActivityForResult(intent, REGISTRATION);
     }

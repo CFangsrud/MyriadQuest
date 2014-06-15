@@ -103,7 +103,7 @@ public class QuestListActivity extends ListActivity {
         ArrayList<QuestData> visibleList = new ArrayList<QuestData>();
 
         SharedPreferences savedSettings = getSharedPreferences("accountSettings", MODE_PRIVATE);
-        int heroAlign = savedSettings.getInt(SettingsActivity.ALIGNMENT_KEY, 1);
+        int heroAlign = savedSettings.getInt(QuestApp.ALIGNMENT_KEY, 1);
 
         for (QuestData quest : questList){
             String questAlign = quest.getAlignment().toLowerCase();

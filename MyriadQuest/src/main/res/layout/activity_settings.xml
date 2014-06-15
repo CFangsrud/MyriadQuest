@@ -8,41 +8,81 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="com.example.myriadquest.myriadquest.SettingsActivity">
 
-    <EditText
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:id="@+id/editNameField"
-        android:layout_alignParentTop="true"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/nameLabel"
+        android:layout_marginTop="18dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:hint="@string/settingNameHint" />
+        android:text="@string/settingNameHint" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
-        android:ems="10"
-        android:id="@+id/editOriginLocation"
-        android:layout_below="@+id/editNameField"
+        android:ems="5"
+        android:id="@+id/editNameField"
+        android:layout_below="@+id/nameLabel"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:hint="@string/settingLocationHint" />
+        android:hint="@string/settingNameHint"
+        android:layout_marginTop="5dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/locationLabel"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/editNameField"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:text="@string/settingLocation" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/editLatitude"
+        android:hint="Latitude"
+        android:ems="7"
+        android:layout_below="@+id/locationLabel"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:numeric="integer|signed|decimal" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text=", "
+        android:id="@+id/textViewComma"
+        android:layout_toRightOf="@+id/editLatitude"
+        android:layout_alignBottom="@+id/editLatitude" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number|numberSigned|numberDecimal"
+        android:id="@+id/editLongitude"
+        android:hint="Longitude"
+        android:ems="7"
+        android:layout_alignTop="@+id/editLatitude"
+        android:layout_toRightOf="@+id/textViewComma" />
 
     <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/alignmentSpinner"
-        android:layout_below="@+id/editOriginLocation"
+        android:layout_below="@+id/editLatitude"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="10dp" />
 
     <Button
         android:layout_width="wrap_content"
@@ -54,6 +94,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="10dp" />
 
 </RelativeLayout>

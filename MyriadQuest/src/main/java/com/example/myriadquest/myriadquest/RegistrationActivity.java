@@ -29,7 +29,7 @@ public class RegistrationActivity extends ActionBarActivity {
         nameText = (EditText) findViewById(R.id.signUpName);
 
         // Get the Username entered at login
-        userText.setText(getIntent().getStringExtra(MainActivity.USERNAME_KEY));
+        userText.setText(getIntent().getStringExtra(QuestApp.USERNAME_KEY));
 
         alignmentSpinner = (Spinner) findViewById(R.id.alignmentSpinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.alignmentArray, android.R.layout.simple_spinner_item);
@@ -78,8 +78,8 @@ public class RegistrationActivity extends ActionBarActivity {
             ParseUser attemptTo = new ParseUser();
             attemptTo.setUsername(desiredUsername);
             attemptTo.setPassword(desiredPassword);
-            attemptTo.put("name", desiredName);
-            attemptTo.put("alignment", alignment);
+            attemptTo.put(QuestApp.NAME_KEY, desiredName);
+            attemptTo.put(QuestApp.ALIGNMENT_KEY, alignment);
             attemptTo.signUpInBackground(new SignUpCallback() {
                 @Override
                 public void done(ParseException e) {

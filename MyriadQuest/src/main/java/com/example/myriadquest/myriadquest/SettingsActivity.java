@@ -1,6 +1,5 @@
 package com.example.myriadquest.myriadquest;
 
-import android.content.SharedPreferences;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -10,37 +9,37 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.parse.ParseGeoPoint;
+import com.parse.ParseUser;
+
 
 public class SettingsActivity extends ActionBarActivity {
 
-    public static final String NAME_KEY = "com.example.myriadquest.NAME";
-    public static final String LOCATION_KEY = "com.example.myriadquest.LOCATION";
-    public static final String ALIGNMENT_KEY = "com.example.myriadquest.ALIGNMENT";
-
     private Spinner alignmentSpinner;
     private int alignment;
-    private TextView editName, editLocation;
-    private SharedPreferences savedSettings;
-    private SharedPreferences.Editor savedSettingsEditor;
+    private TextView editName, editLatitude, editLongitude;
+
+    private ParseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
+        user = ParseUser.getCurrentUser();
+
         editName = (TextView) findViewById(R.id.editNameField);
-        editLocation = (TextView) findViewById(R.id.editOriginLocation);
+        editLatitude = (TextView) findViewById(R.id.editLatitude);
+        editLongitude = (TextView) findViewById(R.id.editLongitude);
 
-        savedSettings = getSharedPreferences("accountSettings", MODE_PRIVATE);
-        savedSettingsEditor = savedSettings.edit();
-
-        String name = savedSettings.getString(NAME_KEY, "");
-        String location = savedSettings.getString(LOCATION_KEY, "");
+        String name = user.getString(QuestApp.NAME_KEY);
         if (!name.equals("")){
             editName.setText(name);
         }
-        if (!location.equals("")){
-            editLocation.setText(location);
+        ParseGeoPoint location = user.getParseGeoPoint(QuestApp.LOCATION_KEY);
+        if (location != null) {
+            editLatitude.setText(""+location.getLatitude());
+            editLongitude.setText(""+location.getLongitude());
         }
 
         alignmentSpinner = (Spinner) findViewById(R.id.alignmentSpinner);
@@ -48,7 +47,7 @@ public class SettingsActivity extends ActionBarActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         alignmentSpinner.setAdapter(adapter);
 
-        alignment = savedSettings.getInt(ALIGNMENT_KEY, 1);
+        alignment = user.getInt(QuestApp.ALIGNMENT_KEY);
         alignmentSpinner.setSelection(alignment);
     }
 
@@ -76,13 +75,15 @@ public class SettingsActivity extends ActionBarActivity {
 
     public void updateSettings(View view) {
         String name = editName.getText().toString();
-        String location = editLocation.getText().toString();
+        String latitudeString = editLatitude.getText().toString();
+        String longitudeString = editLongitude.getText().toString();
         alignment = alignmentSpinner.getSelectedItemPosition();
 
-        savedSettingsEditor.putString(NAME_KEY, name);
-        savedSettingsEditor.putString(LOCATION_KEY, location);
-        savedSettingsEditor.putInt(ALIGNMENT_KEY, alignment);
-        savedSettingsEditor.commit();
+        user.put(QuestApp.NAME_KEY, name);
+        ParseGeoPoint location = new ParseGeoPoint(Double.parseDouble(latitudeString), Double.parseDouble(longitudeString));
+        user.put(QuestApp.LOCATION_KEY, location);
+        user.put(QuestApp.ALIGNMENT_KEY, alignment);
+        user.saveInBackground();
 
         setResult(RESULT_OK);
         finish();

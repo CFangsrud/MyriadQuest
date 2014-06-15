@@ -7,6 +7,13 @@ import com.parse.Parse;
 
 public class QuestApp extends Application {
 
+    // Names of Parse columns, used in many activities
+    public static final String
+            USERNAME_KEY = "username",
+            NAME_KEY = "name",
+            LOCATION_KEY = "location",
+            ALIGNMENT_KEY = "alignment";
+
     @Override
     public void onCreate() {
         super.onCreate();
