@@ -76,7 +76,13 @@ public class SettingsActivity extends ActionBarActivity {
     public void updateSettings(View view) {
         String name = editName.getText().toString();
         String latitudeString = editLatitude.getText().toString();
+        if (latitudeString.equals("")) {
+            latitudeString = "0.0";
+        }
         String longitudeString = editLongitude.getText().toString();
+        if (longitudeString.equals("")) {
+            longitudeString = "0.0";
+        }
         alignment = alignmentSpinner.getSelectedItemPosition();
 
         user.put(QuestApp.NAME_KEY, name);
