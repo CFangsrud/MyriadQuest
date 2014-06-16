@@ -44,4 +44,8 @@
 
     <string name="noQuests">There are no quests to display for this criteria.</string>
 
+    <string name="acceptQuest">Accept Quest</string>
+    <string name="completeQuest">Complete Quest</string>
+    <string name="finishedQuest">Completed</string>
+
 </resources>

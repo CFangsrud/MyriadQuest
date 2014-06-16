@@ -28,7 +28,6 @@ public class QuestListActivity extends ListActivity implements AdapterView.OnIte
             adapterAccepted,
             adapterCompleted;
 
-    private Spinner questListSpinner;
     private int currentFilter, lastAlign;
 
     @Override
@@ -39,7 +38,7 @@ public class QuestListActivity extends ListActivity implements AdapterView.OnIte
         user = ParseUser.getCurrentUser();
         lastAlign = user.getInt(QuestApp.ALIGNMENT_KEY);
 
-        questListSpinner = (Spinner) findViewById(R.id.questSpinner);
+        Spinner questListSpinner = (Spinner) findViewById(R.id.questSpinner);
         ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter.createFromResource(this, R.array.questListFilterOptions, android.R.layout.simple_spinner_item);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         questListSpinner.setAdapter(spinnerAdapter);
@@ -79,9 +78,14 @@ public class QuestListActivity extends ListActivity implements AdapterView.OnIte
         if (requestCode == ALIGNMENT_UPDATED && resultCode == RESULT_OK) {
             if (lastAlign != user.getInt(QuestApp.ALIGNMENT_KEY)) {
                 lastAlign = user.getInt(QuestApp.ALIGNMENT_KEY);
-                updateListVisibility();
             }
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateListVisibility();
     }
 
     @Override

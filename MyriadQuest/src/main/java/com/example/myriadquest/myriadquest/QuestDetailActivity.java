@@ -4,6 +4,8 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -18,6 +20,7 @@ import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 
 public class QuestDetailActivity extends ActionBarActivity {
@@ -25,7 +28,9 @@ public class QuestDetailActivity extends ActionBarActivity {
     private String[] alignment;
 
     private ParseObject quest;
-    private ParseUser questGiver;
+    private ParseUser user, questGiver;
+
+    private Button progressQuestButton;
 
     private GoogleMap map;
 
@@ -35,6 +40,10 @@ public class QuestDetailActivity extends ActionBarActivity {
         setContentView(R.layout.activity_quest_detail);
 
         alignment = getResources().getStringArray(R.array.alignmentArray);
+
+        progressQuestButton = (Button) findViewById(R.id.progressQuestButton);
+
+        user = ParseUser.getCurrentUser();
 
         // Get the Quest data from Parse, given the objectId passed via the intent
         queryQuest(getIntent().getStringExtra(QuestApp.OBJECTID_KEY));
@@ -86,6 +95,8 @@ public class QuestDetailActivity extends ActionBarActivity {
             questAlignmentView.setText(alignment[quest.getInt(QuestApp.ALIGNMENT_KEY)]);
 
             initializeMap();
+
+            updateButtonText();
         }
     }
 
@@ -159,5 +170,69 @@ public class QuestDetailActivity extends ActionBarActivity {
         LatLng questLL = new LatLng(location.getLatitude(), location.getLongitude());
         MarkerOptions questMarker = new MarkerOptions().position(questLL);
         map.addMarker(questMarker);
+    }
+
+    /* Update the label and usability of the button. */
+    private void updateButtonText() {
+        if (!quest.getBoolean(QuestApp.COMPLETED_KEY)) { // Quest is not completed
+            // It is safe to turn on the button
+            progressQuestButton.setEnabled(true);
+
+            user = ParseUser.getCurrentUser();
+            ParseUser taker = quest.getParseUser(QuestApp.ACCEPTEDBY_KEY);
+            if (taker != null) { // Someone accepted the quest
+                try { // Try to get the data of the one who accepted the quest
+                    taker.fetchIfNeeded();
+                    if (user.getObjectId().equals(taker.getObjectId())) {
+                        // Current user has accepted this quest, it can be completed.
+                        progressQuestButton.setText(getResources().getString(R.string.completeQuest));
+                    } else { // Somehow the user has accessed someone else's quest.
+                        progressQuestButton.setEnabled(false);
+                        progressQuestButton.setText("Someone else has accepted this quest.");
+                    }
+                } catch (ParseException e) {
+                    if (e.getCode() == 101) { // The acceptor of this quest doesn't actually exist, it is available
+                        progressQuestButton.setText(getResources().getString(R.string.acceptQuest));
+                    }
+                }
+            } else { // No one has accepted this quest, it is available
+                progressQuestButton.setText(getResources().getString(R.string.acceptQuest));
+            }
+        } else { // Quest has been completed.
+            progressQuestButton.setText(getResources().getString(R.string.finishedQuest));
+            // Disable button.
+            progressQuestButton.setEnabled(false);
+        }
+    }
+
+    /* Progress the progress of the quest.
+    * If the quest is available, accept it.
+    * If the quest is accepted, complete it.
+    */
+    public void progressQuest(View view) {
+        /* Safe to use the string value, in spite of the default R.string.acceptQuest text
+           because the button is disabled by default, and must pass through updateButtonText()
+           to be enabled, which sets the correct text. */
+        String progress = progressQuestButton.getText().toString();
+
+        if (progress.equals(getResources().getString(R.string.acceptQuest))) {
+            quest.put(QuestApp.ACCEPTEDBY_KEY, user);
+            progressQuestButton.setEnabled(false); // Disable button while saving update to server
+            quest.saveInBackground(new SaveCallback() {
+                @Override
+                public void done(ParseException e) {
+                    updateButtonText();
+                }
+            });
+        } else if (progress.equals(getResources().getString(R.string.completeQuest))) {
+            quest.put(QuestApp.COMPLETED_KEY, true);
+            progressQuestButton.setEnabled(false); // Disable button while saving update to server
+            quest.saveInBackground(new SaveCallback() {
+                @Override
+                public void done(ParseException e) {
+                    updateButtonText();
+                }
+            });
+        }
     }
 }
