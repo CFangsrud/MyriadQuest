@@ -1,14 +1,19 @@
 package com.example.myriadquest.myriadquest;
 
+import android.content.Context;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.parse.LocationCallback;
+import com.parse.ParseException;
 import com.parse.ParseGeoPoint;
 import com.parse.ParseUser;
 
@@ -93,5 +98,22 @@ public class SettingsActivity extends ActionBarActivity {
 
         setResult(RESULT_OK);
         finish();
+    }
+
+    public void updateLocation(View view) {
+        findViewById(R.id.updateButton).setEnabled(false);
+        final Context context = this;
+
+        ParseGeoPoint.getCurrentLocationInBackground(2000, new LocationCallback() {
+            public void done(ParseGeoPoint geoPoint, ParseException e) {
+                if (e == null) {
+                    editLatitude.setText(""+geoPoint.getLatitude());
+                    editLongitude.setText(""+geoPoint.getLongitude());
+                } else {
+                    Toast.makeText(context, "Could not get current location.", Toast.LENGTH_LONG).show();
+                }
+                findViewById(R.id.updateButton).setEnabled(true);
+            }
+        });
     }
 }

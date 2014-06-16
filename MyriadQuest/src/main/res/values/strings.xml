@@ -48,4 +48,6 @@
     <string name="completeQuest">Complete Quest</string>
     <string name="finishedQuest">Completed</string>
 
+    <string name="updateLocation">Get Current Location</string>
+
 </resources>
