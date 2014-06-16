@@ -36,6 +36,14 @@
     <string name="title_activity_registration">Register</string>
     <string name="signUpName">Name</string>
 
+    <string-array name="questListFilterOptions">
+        <item>Available Quests</item>
+        <item>Accepted Quests</item>
+        <item>Completed Quests</item>
+    </string-array>
+
+    <string name="noQuests">There are no quests to display for this criteria.</string>
+
     <!-- "Offline" Quest data -->
     <string-array name="quest0">
         <item>Bandits in the Woods</item>
